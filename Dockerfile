@@ -45,10 +45,11 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
 
-WORKDIR /$USER_NAME/project/
+WORKDIR /home/$USER_NAME/project/
 
 RUN sudo chown -R $USER_NAME /home/$USER_NAME
 
 COPY ./requirements.txt .
 RUN pip3 install --upgrade pip
 RUN pip3 install --no-cache-dir -r requirements.txt
+
