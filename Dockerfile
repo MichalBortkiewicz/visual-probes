@@ -3,6 +3,7 @@ FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
 ARG USER_NAME
 ARG PASSWD
 ARG UID
+ARG PROJECT_NAME=visual-probes
 
 RUN groupadd -g $UID $USER_NAME
 RUN useradd -rm -d /home/$USER_NAME -s /bin/bash -g $UID -G sudo -u $UID $USER_NAME
@@ -45,11 +46,11 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
 
-WORKDIR /home/$USER_NAME/project/
+WORKDIR /home/$USER_NAME/$PROJECT_NAME/
 
 RUN sudo chown -R $USER_NAME /home/$USER_NAME
 
-COPY ./requirements.txt .
+COPY . .
 RUN pip3 install --upgrade pip
 RUN pip3 install --no-cache-dir -r requirements.txt
 
