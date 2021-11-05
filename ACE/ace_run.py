@@ -9,7 +9,8 @@ from tcav import utils
 import tensorflow as tf
 
 import ace_helpers
-from ace import ConceptDiscovery
+# from ace import ConceptDiscovery
+import ace
 import argparse
 
 
@@ -34,7 +35,7 @@ def main(args):
   mymodel = ace_helpers.make_model(
       sess, args.model_to_run, args.model_path, args.labels_path)
   # Creating the ConceptDiscovery class instance
-  cd = ConceptDiscovery(
+  cd = ace.ConceptDiscovery(
       mymodel,
       args.target_class,
       random_concept,
