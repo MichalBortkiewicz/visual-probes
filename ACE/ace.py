@@ -321,9 +321,7 @@ class ConceptDiscovery(object):
             )
         else:
             output = []
-            print(int(imgs.shape[0] / bs))
             for i in range(int(imgs.shape[0] / bs) + 1):
-                print(i)
                 output.append(
                     self.model.run_examples(imgs[i * bs : (i + 1) * bs], bottleneck)
                 )
