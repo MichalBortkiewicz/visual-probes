@@ -3,17 +3,9 @@ import os
 import shutil
 import numpy as np
 import socket
-# from torchvision.datasets import ImageNet
-#
-# print(os.listdir("."))
-# ImageNet(
-#     "//home/mbortkie/cl_probing/continual-probing/data/ImageNet/",
-#     split="val",
-# )
 
-# TODO: Change to "train"
-TMP_IN_TARGET_FOLDER = "val"
 
+TMP_IN_TARGET_FOLDER = "train"
 IMAGE_NET_PATH = "//home/mbortkie/cl_probing/continual-probing/data/ImageNet"
 DATA_DIR = "//home/mbortkie/cl_probing/continual-probing/data/"
 
