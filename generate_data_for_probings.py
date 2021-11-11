@@ -1376,7 +1376,9 @@ def calc_image_activations(
     activations = []
 
     # Iterate through images
+    print(f"Target class: {target_class}, phase: {phase}")
     for idx, image in enumerate(ds):
+        print(f"Image idx: {idx} out of {len(ds)}")
 
         # Extract superpixels embeddings
         sp_outputs = dummy_cd._return_superpixels(
@@ -1750,7 +1752,7 @@ def get_parser():
 
 
 def main(args=None):
-    local_path = "/local/data/oleszkie/"
+    local_path = ROOT_DIR
     parser = get_parser()
     args = parser.parse_args(args)
     generate = args.generate
@@ -1791,7 +1793,7 @@ def main(args=None):
                 activation_train,
                 open(
                     os.path.join(
-                        local_path, f"activations/train_activations_{clas}.pkl"
+                        local_path, f"data/activations/train_activations_{clas}.pkl"
                     ),
                     "wb",
                 ),
@@ -1801,7 +1803,7 @@ def main(args=None):
             pickle.dump(
                 activation_val,
                 open(
-                    os.path.join(local_path, f"activations/val_activations_{clas}.pkl"),
+                    os.path.join(local_path, f"data/activations/val_activations_{clas}.pkl"),
                     "wb",
                 ),
             )
