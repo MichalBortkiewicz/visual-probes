@@ -1813,16 +1813,16 @@ def main(args=None):
     elif generate == "labels":
         for clas in classes:
             train_label = create_concept_labels(
-                "train", clas, test_classes, top_concepts
+                "train", clas, test_classes, top_concepts, local_path=local_path
             )
             with open(
-                os.path.join(local_path, f"labels/train_labels_55_{clas}.pkl"), "wb"
+                os.path.join(local_path, f"data/labels/train_labels_55_{clas}.pkl"), "wb"
             ) as labels_file:
                 pickle.dump(train_label, labels_file)
 
-            val_label = create_concept_labels("val", clas, test_classes, top_concepts)
+            val_label = create_concept_labels("val", clas, test_classes, top_concepts, local_path=local_path)
             with open(
-                os.path.join(local_path, f"labels/val_labels_55_{clas}.pkl"), "wb"
+                os.path.join(local_path, f"data/labels/val_labels_55_{clas}.pkl"), "wb"
             ) as labels_file:
                 pickle.dump(val_label, labels_file)
 
