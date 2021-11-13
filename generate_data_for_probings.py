@@ -13,8 +13,6 @@ from PIL import Image
 from create_data import _get_in_dirname
 import sys
 
-from utils.script_generator import CLASSES
-
 sys.path.append("./ACE")
 from ACE.ace_helpers import load_image_from_file
 from ACE import ace_helpers
@@ -32,11 +30,65 @@ from pathlib import Path
 IMAGE_NET_PATH = "/local/data/ImageNet"
 ROOT_DIR = "/home/mbortkie/"
 
-top_concepts = pd.read_csv(os.path.join(ROOT_DIR, "visual-probes", "top_concepts_df.csv"))["concept"].tolist()
+top_concepts = pd.read_csv(
+    os.path.join(ROOT_DIR, "visual-probes", "top_concepts_df.csv")
+)["concept"].tolist()
 
+CLASSES = [
+    "zebra",
+    "bison",
+    "koala",
+    "jaguar",
+    "chimpanzee",
+    "hog",
+    "hamster",
+    "lion",
+    "beaver",
+    "lynx",
+    "sports_car",
+    "airliner",
+    "jeep",
+    "passenger_car",
+    "steam_locomotive",
+    "cab",
+    "garbage_truck",
+    "warplane",
+    "ambulance",
+    "police_van",
+    "planetarium",
+    "castle",
+    "church",
+    "mosque",
+    "triumphal_arch",
+    "barn",
+    "stupa",
+    "suspension_bridge",
+    "steel_arch_bridge",
+    "viaduct",
+    "sax",
+    "flute",
+    "cornet",
+    "panpipe",
+    "cello",
+    "acoustic_guitar",
+    "grand_piano",
+    "banjo",
+    "maraca",
+    "chime",
+    "fig",
+    "custard_apple",
+    "banana",
+    "corn",
+    "lemon",
+    "pomegranate",
+    "pineapple",
+    "jackfruit",
+    "strawberry",
+    "orange",
+]
 test_classes = CLASSES
 
-assert test_classes.__len__() == 55
+assert test_classes.__len__() == 50
 
 
 class ImagenetDataset(Dataset):
@@ -523,14 +575,16 @@ def create_concept_labels(
 
     # Generate filenames with concept centers
     centers_pkls = [
-        os.path.join(local_path, f"/concepts/{clas}_dict.pkl") for clas in all_classes
+        os.path.join(local_path, "concepts", f"{clas}_dict.pkl") for clas in all_classes
     ]
 
     # Get dict of (concept_name, concept_center)
     centers = {}
 
     # Read file with concept centers and radiuses
-    for centers_pkl in centers_pkls:
+    print(f"Target class: {target_class}, phase: {phase}, getting concepts centers")
+    for idx, centers_pkl in enumerate(centers_pkls):
+        print(f"Pickle file idx: {idx}, out of {len(centers_pkls)}")
         with open(centers_pkl, "rb") as centers_file:
             centers_pkl = pickle.load(centers_file)
 
@@ -550,13 +604,15 @@ def create_concept_labels(
     activations = None
     with open(
         os.path.join(
-            local_path, f"/activations/{phase}_activations_{target_class}.pkl"
+            local_path, "activations", f"{phase}_activations_{target_class}.pkl"
         ),
         "rb",
     ) as activations_file:
         activations = pickle.load(activations_file)
 
+    print(f"Target class: {target_class}, phase: {phase}, getting activations")
     for idx, image in enumerate(activations):
+        print(f"Activations ile idx: {idx}, out of {len(activations)}")
         # Initialize is concept present dict
         is_concept_present = {concept: 0 for concept in df_centers.columns}
 
@@ -644,7 +700,9 @@ def main(args=None):
             pickle.dump(
                 activation_val,
                 open(
-                    os.path.join(local_path, f"data/activations/val_activations_{clas}.pkl"),
+                    os.path.join(
+                        local_path, f"data/activations/val_activations_{clas}.pkl"
+                    ),
                     "wb",
                 ),
             )
@@ -654,14 +712,25 @@ def main(args=None):
     elif generate == "labels":
         for clas in classes:
             train_label = create_concept_labels(
-                "train", clas, test_classes, top_concepts, local_path=local_path
+                "train",
+                clas,
+                test_classes,
+                top_concepts,
+                local_path=os.path.join(local_path, "data"),
             )
             with open(
-                os.path.join(local_path, f"data/labels/train_labels_55_{clas}.pkl"), "wb"
+                os.path.join(local_path, f"data/labels/train_labels_55_{clas}.pkl"),
+                "wb",
             ) as labels_file:
                 pickle.dump(train_label, labels_file)
 
-            val_label = create_concept_labels("val", clas, test_classes, top_concepts, local_path=local_path)
+            val_label = create_concept_labels(
+                "val",
+                clas,
+                test_classes,
+                top_concepts,
+                local_path=os.path.join(local_path, "data"),
+            )
             with open(
                 os.path.join(local_path, f"data/labels/val_labels_55_{clas}.pkl"), "wb"
             ) as labels_file:
@@ -675,4 +744,5 @@ def main(args=None):
     #         create_ss_embeddings(representation, "val", classes)
 
 
-main()
+if __name__ == "__main__":
+    main()
