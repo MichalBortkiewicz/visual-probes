@@ -54,4 +54,4 @@ top_concepts = concept_filtering(
 
 
 # %%
-top_concepts.to_csv(os.path.join(ROOT_DIR, "visual-probes", "top_concepts_df.csv"), index=False)
+top_concepts.to_csv(os.path.join(ROOT_DIR, "visual_probes", "top_concepts_df.csv"), index=False)

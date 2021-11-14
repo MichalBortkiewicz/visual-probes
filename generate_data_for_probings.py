@@ -31,7 +31,7 @@ IMAGE_NET_PATH = "/local/data/ImageNet"
 ROOT_DIR = "/home/mbortkie/"
 
 top_concepts = pd.read_csv(
-    os.path.join(ROOT_DIR, "visual-probes", "top_concepts_df.csv")
+    os.path.join(ROOT_DIR, "visual_probes", "top_concepts_df.csv")
 )["concept"].tolist()
 
 CLASSES = [
@@ -239,9 +239,9 @@ def calc_image_activations(
     image_net_path=os.path.join(ROOT_DIR, "data", "ImageNet"),
     model_to_run="GoogleNet",
     model_path=os.path.join(
-        ROOT_DIR, "visual-probes", "ACE", "tensorflow_inception_graph.pb"
+        ROOT_DIR, "visual_probes", "ACE", "tensorflow_inception_graph.pb"
     ),
-    labels_path=os.path.join(ROOT_DIR, "visual-probes", "ACE", "imagenet_labels.txt"),
+    labels_path=os.path.join(ROOT_DIR, "visual_probes", "ACE", "imagenet_labels.txt"),
 ):
 
     # Make tensorflow model

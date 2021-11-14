@@ -4,6 +4,7 @@ import shutil
 import numpy as np
 import socket
 
+from config import ROOT_DIR
 
 TMP_IN_TARGET_FOLDER = "train"
 IMAGE_NET_PATH = "//home/mbortkie/cl_probing/continual-probing/data/ImageNet"
@@ -12,7 +13,7 @@ DATA_DIR = "//home/mbortkie/cl_probing/continual-probing/data/"
 
 def _get_in_dirname(target_class: str) -> str:
 
-    with open("imagenet_dirs.txt", "r") as f:
+    with open(os.path.join(ROOT_DIR, "visual_probes", "imagenet_dirs.txt"), "r") as f:
         lines = f.readlines()
 
     class_to_dir = {}
