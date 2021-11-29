@@ -1,15 +1,16 @@
 import os
 import pickle
 import numpy as np
-import matplotlib.pyplot as plt
 from typing import List
 import pandas as pd
 import torch
-from torch.utils.data import Dataset, DataLoader
-from torchvision import transforms, models
+from torch.utils.data import Dataset
+from torchvision import models
 
 
 from PIL import Image
+
+from config import CLASSES
 from create_data import _get_in_dirname
 import sys
 
@@ -18,7 +19,6 @@ from ACE.ace_helpers import load_image_from_file
 from ACE import ace_helpers
 from ACE.ace import ConceptDiscovery
 from tcav import utils
-from pathlib import Path
 
 # import tensorflow.compat.v1 as tf
 #
@@ -34,58 +34,6 @@ top_concepts = pd.read_csv(
     os.path.join(ROOT_DIR, "visual_probes", "top_concepts_df.csv")
 )["concept"].tolist()
 
-CLASSES = [
-    "zebra",
-    "bison",
-    "koala",
-    "jaguar",
-    "chimpanzee",
-    "hog",
-    "hamster",
-    "lion",
-    "beaver",
-    "lynx",
-    "sports_car",
-    "airliner",
-    "jeep",
-    "passenger_car",
-    "steam_locomotive",
-    "cab",
-    "garbage_truck",
-    "warplane",
-    "ambulance",
-    "police_van",
-    "planetarium",
-    "castle",
-    "church",
-    "mosque",
-    "triumphal_arch",
-    "barn",
-    "stupa",
-    "suspension_bridge",
-    "steel_arch_bridge",
-    "viaduct",
-    "sax",
-    "flute",
-    "cornet",
-    "panpipe",
-    "cello",
-    "acoustic_guitar",
-    "grand_piano",
-    "banjo",
-    "maraca",
-    "chime",
-    "fig",
-    "custard_apple",
-    "banana",
-    "corn",
-    "lemon",
-    "pomegranate",
-    "pineapple",
-    "jackfruit",
-    "strawberry",
-    "orange",
-]
 test_classes = CLASSES
 
 assert test_classes.__len__() == 50
