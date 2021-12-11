@@ -5,10 +5,10 @@ import pandas as pd
 import os
 
 from config import ROOT_DIR
-from utils.script_generator import CLASSES
+from utils.script_generator import ALL_CLASSES
 
 # test_classes = ["zebra", "dingo", "bison", "koala", "jaguar", "chimpanzee", "hog", "hamster", "lion", "beaver", "lynx", "convertible", "sports_car", "airliner", "jeep", "passenger_car", "steam_locomotive", "cab", "garbage_truck", "warplane", "ambulance", "police_van", "planetarium", "castle", "church", "mosque", "triumphal_arch", "barn", "stupa", "boathouse", "suspension_bridge", "steel_arch_bridge", "viaduct", "sax", "flute", "cornet", "panpipe", "drum", "cello", "acoustic_guitar", "grand_piano", "banjo", "maraca", "chime", "Granny_Smith", "fig", "custard_apple", "banana", "corn", "lemon", "pomegranate", "pineapple", "jackfruit", "strawberry", "orange"]
-test_classes = CLASSES
+test_classes = ALL_CLASSES
 assert len(test_classes) == 50
 
 

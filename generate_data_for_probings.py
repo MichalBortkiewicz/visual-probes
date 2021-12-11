@@ -10,7 +10,7 @@ from torchvision import models
 
 from PIL import Image
 
-from config import CLASSES
+from config import ALL_CLASSES
 from create_data import _get_in_dirname
 import sys
 
@@ -34,7 +34,7 @@ top_concepts = pd.read_csv(
     os.path.join(ROOT_DIR, "visual_probes", "top_concepts_df.csv")
 )["concept"].tolist()
 
-test_classes = CLASSES
+test_classes = ALL_CLASSES
 
 assert test_classes.__len__() == 50
 
